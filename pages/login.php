@@ -1,5 +1,5 @@
 <?php 
-	require_once $_SERVER['DOCUMENT_ROOT'].'/security/connexion.php';
+	require_once $_SERVER['DOCUMENT_ROOT'].'/security/config.php';
 	if (isset($_POST['submit'])){
 
 		$user_username = htmlspecialchars($_POST['username']);
