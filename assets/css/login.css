@@ -1,0 +1,146 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+/** end reset css**/
+
+html {
+    height : 100%;
+}
+
+body {
+	margin: auto;
+    height: 100%;
+	font-family: 'Poppins', sans-serif;
+	font-size: 14px;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(#313e74,#151b36);
+}
+
+
+h1 {
+	font-family: 'Poppins';
+	font-weight: 700;
+	font-size: 80px;
+	color: #ec6834;
+    padding: 50px 0px;
+}
+
+/* --MAIN-- */
+
+main {
+	width: 100%;
+    padding-top: 50px;
+    flex-grow: 1;
+}
+
+.form-container {
+    background-color: white;
+    width: 500px;
+    padding: 50px;
+    border-radius: 30px;
+}
+
+.form-connexion {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+}
+
+.form-connexion h2 {
+	padding-bottom: 40px;
+}
+
+.form-container {
+	width: 379px;
+}
+
+.box-form {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	padding-bottom: 20px;
+}
+
+.box-form label {
+	font-weight: 500;
+	font-size: 14px;
+	color: #3D3D3D;
+	padding-bottom: 5px;
+	text-align: left;
+}
+
+input {
+	height: 51px;
+	border: none;
+	background: #FFFFFF;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+
+#error-message {
+	font-weight: 700;
+	font-size: 14px;
+	line-height: 16px;
+	color: red;
+	margin-top: 10px;
+	display: block;
+}
+
+button {
+	width: 179px;
+	height: 36px;
+	background: #ec6834;
+	border: none;
+	border-radius: 60px;
+	font-weight: 700;
+	font-size: 16px;
+	color: #3f424f;
+	margin: 20px 0px 35px;
+	cursor: pointer;
+}
+
+button:hover {
+	background: #3f424f;
+	color: #ec6834;
+}
