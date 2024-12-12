@@ -258,4 +258,9 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 10px;
+}
+
+.links > a:last-child{
+  font-size: 20px;
 }
