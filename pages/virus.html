@@ -1,0 +1,54 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hackaton 2024</title>
+    <link rel="stylesheet" href="../assets/css/virus.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik+Glitch&display=swap" rel="stylesheet">
+    <script src="../assets/js/virus.js" defer></script>
+</head>
+<body>
+    <div class="virus">
+        <canvas id="c"></canvas>
+        <div id="intro-image" class="hidden">
+            <img src="../assets/images/hacker.png" alt="Image d'introduction" />
+        </div>
+        <div class="countdown-container hidden">
+            <div class="text-timer-container">
+                <p>ALERTE : Un virus menace votre ordinateur !!</p>
+            </div>
+            <div class="timer-container">
+                <span id="minutes"></span><span id="timer-element">:</span><span id="seconds"></span>
+            </div>
+            <div class="code-container">
+                <input type="text" id="code-input" placeholder="Entrez le code secret" />
+                <button id="submit-code">Valider</button>
+            </div>
+        </div>
+        <div id="modals">
+            <div id="modal-win" class="hidden">
+                <h2>BRAVO !!</h2>
+                <p>Vous avez réussi !</p>
+                <div class="links"> 
+                    <a href="https://www.metz-numeric-school.fr/fr/je-suis-candidat">cliquez-ici</a>
+                    <a href="./minigame.html">Mini-jeu</a>
+                </div>
+
+            </div>
+            <div id="modal-lose" class="hidden">
+                <h2>GAME OVER !!</h2>
+                <img src="../assets/images/hacker.png" alt="image du hacker" />
+                <div class="links"> 
+                    <a href="https://www.metz-numeric-school.fr/fr/je-suis-candidat">cliquez-ici</a>
+                    <a href="./minigame.html">Mini-jeu</a>
+                </div>
+            </div>
+        </div>
+    </div>  
+</body>
+</html>

@@ -69,14 +69,12 @@ echo password_hash("P@ssw0rd!",PASSWORD_DEFAULT);
 					</ul>
 				</div>
             <?php }else{ ?>
-
 				<?php }?>
-			
-			<button type="submit" name="submit">Se connecter</button>
-			<a href="#" class="hint-link" id="hintTrigger">Mot de passe oublié</a>
-
+			<div class="btn-container">
+				<button type="submit" name="submit">Se connecter</button>
+				<a href="#" class="hint-link" id="hintTrigger">Mot de passe oublié</a>
+			</div>
 		</form>
-		
 		<div class="popup" id="hintPopup">
         <div class="popup-content">
             <div class="popup-header">
@@ -86,7 +84,7 @@ echo password_hash("P@ssw0rd!",PASSWORD_DEFAULT);
             <div class="popup-body">
                 <p>Vous semblez bloqué ? Voici un indice qui pourrait vous aider :</p>
                 <div class="hint-container">
-                    <p>🔍 Regardez attentivement la bibliothèque. Le livre avec la tranche bleue cache un secret...</p>
+                    <p>🔍  Avez-vous regarder autour de vous ?</p>
                 </div>
                 <button class="btn" id="closeHintBtn">J'ai compris</button>
             </div>

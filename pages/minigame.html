@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulation d'Attaque de Virus fait par Steve BELL</title>
+    <link rel="stylesheet" href="../assets/css/minigame.css">
+    <script defer src="../assets/js/minigame.js"></script>
+</head>
+<body>
+<a class="link" href="../index.html">Retour à l'accueil</a>
+<div class="computer-container">
+    <svg
+            id="computer"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 64 64"
+            width="100"
+            height="100"
+            class="computer-button"
+    >
+        <rect x="8" y="8" width="48" height="32" rx="4" ry="4" fill="#2E86C1" stroke="#1B4F72" stroke-width="2"/>
+        <rect x="12" y="12" width="40" height="24" rx="2" ry="2" fill="#FFFFFF"/>
+        <rect x="16" y="44" width="32" height="4" fill="#616A6B"/>
+        <circle cx="32" cy="52" r="2" fill="#FFFFFF"/>
+        <circle cx="36" cy="52" r="1" fill="#28B463"/>
+    </svg>
+    <div class="aim-cursor" id="aimCursor"></div>
+    <div class="aim-line" id="aimLine"></div>
+</div>
+<div class="scoreboard" id="scoreboard">Points: 0</div>
+<div class="lives" id="lives">Vies: 3</div>
+<div class="projectiles" id="projectiles"></div>
+<div class="viruses" id="viruses"></div>
+</body>
+</html>

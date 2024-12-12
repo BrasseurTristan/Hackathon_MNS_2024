@@ -1,0 +1,44 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+.dash {
+    margin: 0;
+
+}
+
+.dashboard {
+    /*position: relative;*/
+    display: block;
+    background-image: url("../images/dashboard.png");
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 100vh;
+    width: 100%;
+}
+
+.title-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.cesar {
+    /*position: absolute;*/
+    font-size: 72px;
+    color: #05f987;
+    font-family: "Doto", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    text-align: center;
+    /*top: 50%;
+    left: 50%;
+    display: inline-block;
+    transform: translate(50% 50%);*/
+
+}

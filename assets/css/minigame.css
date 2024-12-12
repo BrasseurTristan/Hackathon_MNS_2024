@@ -1,0 +1,156 @@
+body {
+    position: relative;
+    height: 100vh;
+    margin: 0;
+    background-color: #1e1e1e;
+    overflow: hidden; /* Empêche les scrollbars lors des animations */
+    font-family: 'Courier New', Courier, monospace;
+}
+.link{
+    position: absolute;
+    top: 5%;
+    left: 2%;
+    color: white;
+    z-index: 50;
+}
+/* Style du conteneur de l'ordinateur */
+.computer-container {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    cursor: pointer; /* Indique que c'est cliquable */
+    transition: transform 0.2s, box-shadow 0.2s;
+    z-index: 15; /* Au-dessus des projectiles et des virus */
+}
+
+/* Animation au survol */
+.computer-container:hover {
+    transform: translateX(-50%) scale(1.05);
+    filter: drop-shadow(0 0 20px rgba(46, 134, 193, 0.7));
+}
+
+/* Optionnel : Ajout d'une ombre portée par défaut */
+.computer-container svg {
+    filter: drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.3));
+}
+
+
+.computer {
+    width: 100px;
+    height: 100px;
+    cursor: pointer;
+}
+
+/* Compteur de points */
+.scoreboard {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #ffffff;
+    font-size: 24px;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 10px 20px;
+    border-radius: 10px;
+}
+
+/* Compteur de vies */
+.lives {
+    position: absolute;
+    top: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #ffffff;
+    font-size: 24px;
+    background-color: rgba(255, 0, 0, 0.5);
+    padding: 10px 20px;
+    border-radius: 10px;
+}
+
+/* Conteneur des projectiles */
+.projectiles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Permet les clics à travers le conteneur */
+    z-index: 10; /* Au-dessus des virus */
+}
+
+/* Style des projectiles */
+.projectile {
+    position: absolute;
+    min-width: 40px;
+    min-height: 20px;
+    max-width: 100px;
+    padding: 5px 10px;
+    background-color: #2d2d2d;
+    color: #00ff00;
+    border: 2px solid #00ff00;
+    border-radius: 5px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 14px;
+    pointer-events: none;
+    box-shadow: 0 0 10px #00ff00;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    opacity: 0.9;
+    transform: translate(-50%, -50%) scale(0.8);
+    transition: transform 0.2s, opacity 0.2s;
+    z-index: 10; /* Au-dessus des virus */
+}
+
+.projectile:hover {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+}
+
+/* Conteneur des virus */
+.viruses {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 5; /* En dessous des projectiles */
+}
+
+/* Style des virus */
+.virus {
+    position: absolute;
+    background-color: #ff4d4d;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #ff4d4d;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.virus.hit {
+    transform: scale(0.9);
+}
+
+/* Style du curseur de visée */
+.aim-cursor {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: #ffffff;
+    border: 2px solid #00ff00;
+    border-radius: 50%;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    transition: top 0.1s, left 0.1s;
+    z-index: 20; /* Au-dessus de l'ordinateur */
+}
+
+/* Style de la ligne de visée */
+.aim-line {
+    position: absolute;
+    width: 2px;
+    height: 100px;
+    background-color: #00ff00;
+    transform-origin: top;
+    z-index: 15;
+}
