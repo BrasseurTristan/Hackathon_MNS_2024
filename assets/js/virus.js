@@ -72,7 +72,7 @@ function updateCountdown() {
   const submitButton = document.getElementById("submit-code");
   submitButton.addEventListener("click", () => {
     const codeInput = document.getElementById("code-input").value.trim();
-    if (codeInput === "JUSTE") {
+    if (codeInput === "1969") {
       clearInterval(x);
       openModal("win");
     }

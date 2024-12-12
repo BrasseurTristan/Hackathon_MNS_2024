@@ -1,5 +1,5 @@
 <?php 
-echo password_hash("P@ssw0rd!",PASSWORD_DEFAULT);
+
 	require_once $_SERVER['DOCUMENT_ROOT'].'/security/config.php';
 	if (isset($_POST['submit'])){
 
