@@ -1,4 +1,5 @@
 <?php 
+echo password_hash("P@ssw0rd!",PASSWORD_DEFAULT);
 	require_once $_SERVER['DOCUMENT_ROOT'].'/security/config.php';
 	if (isset($_POST['submit'])){
 
@@ -43,6 +44,7 @@
 	<!-- <script type="text/javascript" src="../assets/js/login.js" defer></script> -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<script src="../assets/js/popup.js"defer></script>
 	<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -71,8 +73,25 @@
 				<?php }?>
 			
 			<button type="submit" name="submit">Se connecter</button>
+			<a href="#" class="hint-link" id="hintTrigger">Mot de passe oublié</a>
+
 		</form>
-		<!-- <p><a href="">Mot de passe oublié</a></p> -->
+		
+		<div class="popup" id="hintPopup">
+        <div class="popup-content">
+            <div class="popup-header">
+                <h2>Indice pour l'Escape Game</h2>
+                <span class="close-btn" id="closePopup">&times;</span>
+            </div>
+            <div class="popup-body">
+                <p>Vous semblez bloqué ? Voici un indice qui pourrait vous aider :</p>
+                <div class="hint-container">
+                    <p>🔍 Regardez attentivement la bibliothèque. Le livre avec la tranche bleue cache un secret...</p>
+                </div>
+                <button class="btn" id="closeHintBtn">J'ai compris</button>
+            </div>
+        </div>
+    </div>
 	</div>	
 </main>
 </body>

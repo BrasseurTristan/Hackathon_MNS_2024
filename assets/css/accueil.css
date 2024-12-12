@@ -1,0 +1,253 @@
+
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f0f0;
+    overflow: hidden;
+}
+
+@keyframes virusAttack {
+    0% {
+        left: -60px;
+        top: 50%;
+        transform: scale(1) rotate(0deg);
+        background-color: green;
+    }
+    50% {
+        left: 50%;
+        top: 50%;
+        transform: scale(1.5) rotate(180deg);
+        background-color: red;
+    }
+    100% {
+        left: 100%;
+        top: 50%;
+        transform: scale(1) rotate(360deg);
+        background-color: green;
+    }
+}
+
+body {
+    margin: 0;
+    font-family: var(--bs-font-sans-serif);
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #fff;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent
+}
+
+body {
+    font-size: 16px;
+    font-family: Montserrat,sans-serif;
+    background: #151b36;
+    color: #fff
+}
+
+a {
+    color: #ec6834
+}
+
+#bottom-bar {
+    transform: translateY(100%);
+    transition: all .2s ease-out;
+    position: fixed;
+    z-index: 99;
+    top: calc(100vh - 90px);
+    right: 0;
+    height: 90px;
+    width: 100%
+}
+
+@media screen and (min-width: 1352px) {
+    #bottom-bar {
+        height:70px;
+        top: calc(100vh - 70px);
+        right: 17px
+    }
+}
+
+#bottom-bar.active {
+    transform: translate(0)!important
+}
+
+#bottom-bar .logos {
+    display: flex;
+    border-radius: 5px;
+    margin: -20px auto -20px 0
+}
+
+#bottom-bar .logos img {
+    height: 36px;
+    display: block;
+    margin: 10px
+}
+
+#bottom-bar .nav {
+    height: 100%;
+    position: relative;
+    z-index: 2;
+    padding: 20px 40px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    background: #ec6834;
+    color: #fff
+}
+
+#bottom-bar a {
+    font-family: Gilroy-ExtraBold;
+    color: #fff;
+    text-decoration: none;
+    margin-right: 40px;
+    font-size: 20px
+}
+
+#bottom-bar a:hover {
+    text-decoration: underline
+}
+
+#bottom-bar-toggle {
+    position: absolute;
+    bottom: calc(100% - 1px);
+    right: 40px;
+    transform: translateY(100%)
+}
+
+#bottom-bar-toggle.active {
+    transform: translateY(0)
+}
+
+@media (max-width: 1200px) {
+    #bottom-bar .nav a {
+        margin-right:20px;
+        font-size: 17px
+    }
+}
+
+@media (max-width: 992px) {
+    #bottom-bar .logos {
+        display:none
+    }
+
+    #bottom-bar .nav {
+        padding: 20px;
+        justify-content: center
+    }
+
+    #bottom-bar .nav a {
+        font-size: 3vw;
+        margin: 0 10px
+    }
+
+    #bottom-bar a#bottom-bar-toggle {
+        right: calc(50% - 83px);
+        margin: 0
+    }
+}
+
+
+/* 
+  -------------------------------- page admin ----------------------------------------- */
+  .container-fluid{
+    width: 100%;
+    height: 100%;
+    background-color: var(--bs-indigo);
+  }
+  a{
+    text-decoration: none;
+    color: black;
+ }
+ input:focus{
+    outline: 2px solid black !important;
+ }
+ select:focus{
+    outline: 2px solid black !important;
+ }
+ input{
+    box-shadow: 5px 5px 10px 5px var(--bleu);  
+ }
+ select{
+    box-shadow: 5px 5px 10px 5px var(--bleu);   
+ }
+ label{
+    font-size: large;
+ }
+ textarea{
+    box-shadow: 5px 5px 10px 5px var(--bleu);   
+ }
+ h1{
+   text-align: center; 
+ }
+ h2{
+   font-size:xx-large;
+   text-align: center;
+   margin-top: 50px;
+   box-shadow: 5px 5px 10px 5px var(--bleu);  
+   width: 25%;
+ }
+ h3{
+   font-size:xx-large;
+   text-align: center;
+   margin-top: 150px; 
+   margin-bottom: 50px;
+font-size: 75px;
+color: var(--bleu);
+text-shadow:3px 1px  black;
+}
+/* _-_-_-_-_-_- _-_-_-_-_-_-    _-_-_-_-_-_-    _-_-_-_-_-_-    _-_-_-_-_-_-    _-_-_-_-_-_-    _-_-_-_-_-_-    _-_-_-_-_-_-    _-_-_-_-_-_-    _-_-_-_-_-_-    _-_-_-_-_-_-    _-_-_-_-_-_-    _-_-_-_-_-_-    */
+/* BARRE HORIZONTAL TABLEAU DE BORD  ---------------------------------------------------------------------------- */
+ .titreAdminOne {
+    text-align: center;
+    width: 100%;
+    background-color: var(--bleu);
+}
+/* _-_-_-_-_-_- _-_-_-_-_-_-    _-_-_-_-_-_-    _-_-_-_-_-_-    _-_-_-_-_-_-    _-_-_-_-_-_-    _-_-_-_-_-_-    _-_-_-_-_-_-    _-_-_-_-_-_-    _-_-_-_-_-_-    _-_-_-_-_-_-    _-_-_-_-_-_-    _-_-_-_-_-_-    */
+/*  PAGE ADMIN ---------------------------------------------------------------------------- */
+
+#mainContent{
+   width: 100%;
+   height: auto;
+   display: flex;
+   justify-content: space-between;
+}
+/* _-_-_-_-_-_- _-_-_-_-_-_-    _-_-_-_-_-_-    _-_-_-_-_-_-    _-_-_-_-_-_-    _-_-_-_-_-_-    _-_-_-_-_-_-    _-_-_-_-_-_-    _-_-_-_-_-_-    _-_-_-_-_-_-    _-_-_-_-_-_-    _-_-_-_-_-_-    _-_-_-_-_-_-    */
+/* BARRE NAV LATERALE ---------------------------------------------------------------------------- */
+.navAdmin{
+  height: 100vh;
+  
+}
+ul {
+    list-style-type: none;
+    padding: 20px;
+    width: 250px;
+    background-color: var(--bleu);
+    font-weight: bold;
+}
+li a {
+    display: block;
+    margin-bottom: 75px;
+    text-align: center;
+}
+li a:hover {
+    background-color: var(--bleu);
+    border-radius: 10px;
+}
+/* _-_-_-_-_-_- _-_-_-_-_-_-    _-_-_-_-_-_-    _-_-_-_-_-_-    _-_-_-_-_-_-    _-_-_-_-_-_-    _-_-_-_-_-_-    _-_-_-_-_-_-    _-_-_-_-_-_-    _-_-_-_-_-_-    _-_-_-_-_-_-    _-_-_-_-_-_-    _-_-_-_-_-_-    */
+/* TABLEAUX  ---------------------------------------------------------------------------- */
+tr>th{
+   padding: 30px;
+   margin: 30px;
+}
+tr>td{
+    padding: 15px;
+    margin: 15px;
+}
+
