@@ -4,36 +4,136 @@ const projectilesContainer = document.getElementById('projectiles');
 const virusesContainer = document.getElementById('viruses');
 const scoreboard = document.getElementById('scoreboard');
 const livesDisplay = document.getElementById('lives');
-
-// Sélection du curseur de visée et de la ligne de visée
-const aimCursor = document.getElementById('aimCursor');
-const aimLine = document.getElementById('aimLine');
+const gameContainer = document.getElementById('game-container');
+const startOverlay = document.createElement('div');
 
 let viruses = [];
 let score = 0;
 let lives = 3;
+let gamePaused = true;
+let canShoot = true; // Limitation des tirs
+const WINNING_SCORE = 20; // Score requis pour gagner
 
 // Configuration des virus
 const VIRUS_MIN_SIZE = 30;
 const VIRUS_MAX_SIZE = 60;
 const VIRUS_MIN_SPEED = 1;
-const VIRUS_MAX_SPEED = 3;
+const VIRUS_MAX_SPEED = 4;
 const VIRUS_HEALTH = 3; // Nombre de hits pour détruire un virus
 const NUM_INITIAL_VIRUSES = 5;
 
 // Fragments de code JavaScript pour les projectiles
 const CODE_SNIPPETS = [
-  "console.log('Hacking...');",
-  "let virus = null;",
-  "function destroyVirus() { /* ... */ }",
-  "const code = 'malware';",
-  "if (virus) { virus.health--; }",
-  "document.body.removeChild(virus.element);",
-  "setInterval(() => { /* ... */ }, 1000);",
-  "const payload = 'Exploit';",
-  "class CodeProjectile { /* ... */ }",
-  "alert('Virus destroyed!');"
+  "console.log();",
+  "let virus",
+  "destroyVirus()",
+  "code = 'malware'",
+  "if (virus.health)",
+  "removeChild(virus);",
+  "setInterval(() => 100);",
+  "payload = 'Exploit';",
+  "CodeProjectile {}",
+  "alert('Virus');",
+  "attak Théo",
+  "Gamory push"
 ];
+
+// Création de l'écran de démarrage
+function createStartScreen() {
+  startOverlay.id = 'start-overlay';
+  startOverlay.style.position = 'fixed';
+  startOverlay.style.top = '0';
+  startOverlay.style.left = '0';
+  startOverlay.style.width = '100%';
+  startOverlay.style.height = '100%';
+  startOverlay.style.backgroundColor = 'rgba(0, 0, 0, 0.9)';
+  startOverlay.style.color = 'white';
+  startOverlay.style.display = 'flex';
+  startOverlay.style.flexDirection = 'column';
+  startOverlay.style.justifyContent = 'center';
+  startOverlay.style.alignItems = 'center';
+  startOverlay.style.zIndex = '1000';
+
+  const title = document.createElement('h1');
+  title.textContent = "Simulation d'attaque de virus";
+  title.style.marginBottom = '20px';
+  title.style.color = 'red';
+
+  const rules = document.createElement('p');
+  rules.textContent = "Règles : Tirez 3 fois sur les virus pour protéger votre ordinateur. Si un virus touche l'ordinateur, vous perdez une vie. Gagnez en détruisant 20 virus!";
+  rules.style.textAlign = 'center';
+  rules.style.marginBottom = '20px';
+
+  const startButton = document.createElement('button');
+  startButton.textContent = "Lancer la partie";
+  startButton.style.padding = '10px 20px';
+  startButton.style.fontSize = '18px';
+  startButton.style.cursor = 'pointer';
+  startButton.onclick = startGame;
+
+  const animatedVirus = document.createElement('div');
+  animatedVirus.classList.add('giant-virus');
+  animatedVirus.style.width = '150px';
+  animatedVirus.style.height = '150px';
+  animatedVirus.style.backgroundColor = 'red';
+  animatedVirus.style.borderRadius = '50%';
+  animatedVirus.style.animation = 'bounce 2s infinite';
+
+  startOverlay.appendChild(animatedVirus);
+  startOverlay.appendChild(title);
+  startOverlay.appendChild(rules);
+  startOverlay.appendChild(startButton);
+  document.body.appendChild(startOverlay);
+
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+
+    #start-overlay button {
+      background-color: #333;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    #start-overlay button:hover {
+      background-color: #555;
+    }
+  `;
+  document.head.appendChild(style);
+}
+
+function startGame() {
+  // Supprime l'overlay de démarrage
+  startOverlay.remove();
+
+  // Nettoyer les virus précédents
+  viruses.forEach(virus => virus.element.remove());
+  viruses = [];
+
+  // Réinitialiser les variables
+  gamePaused = false;
+  score = 0;
+  lives = 3;
+  scoreboard.textContent = `Points: ${score}`;
+  livesDisplay.textContent = `Vies: ${lives}`;
+
+  // Rendre visible les éléments de jeu
+  scoreboard.style.display = 'block';
+  livesDisplay.style.display = 'block';
+  computer.style.display = 'block';
+  virusesContainer.style.display = 'block';
+
+  // Générer les virus
+  for (let i = 0; i < NUM_INITIAL_VIRUSES; i++) {
+    const virus = new Virus();
+    viruses.push(virus);
+  }
+}
 
 // Classe Virus
 class Virus {
@@ -48,22 +148,18 @@ class Virus {
     this.element.style.height = `${this.size}px`;
     this.element.style.backgroundColor = getRandomColor();
 
-    // Position initiale aléatoire
     this.x = getRandomInt(0, window.innerWidth - this.size);
-    this.y = getRandomInt(0, window.innerHeight - this.size - 120); // Éviter la zone de l'ordinateur
+    this.y = getRandomInt(0, window.innerHeight - this.size - 120);
     this.element.style.left = `${this.x}px`;
     this.element.style.top = `${this.y}px`;
 
     virusesContainer.appendChild(this.element);
 
-    // Direction aléatoire initiale
     this.direction = this.getRandomDirection();
-
     this.move();
   }
 
   getRandomDirection() {
-    // Génère une direction aléatoire entre -1 et 1 pour X et Y
     const angle = Math.random() * 2 * Math.PI;
     return {
       x: Math.cos(angle),
@@ -72,16 +168,28 @@ class Virus {
   }
 
   move() {
-    // Mise à jour de la position
+    if (gamePaused) return;
+
     this.x += this.direction.x * this.speed;
     this.y += this.direction.y * this.speed;
 
-    // Bordures de l'écran
     if (this.x <= 0 || this.x + this.size >= window.innerWidth) {
       this.direction.x *= -1;
     }
-    if (this.y <= 0 || this.y + this.size >= window.innerHeight - 120) { // Éviter la zone de l'ordinateur
+    if (this.y <= 0 || this.y + this.size >= window.innerHeight) {
       this.direction.y *= -1;
+    }
+
+    // Vérification de la collision avec l'ordinateur
+    const computerRect = computer.getBoundingClientRect();
+    const virusRect = this.element.getBoundingClientRect();
+    if (
+      virusRect.right > computerRect.left &&
+      virusRect.left < computerRect.right &&
+      virusRect.bottom > computerRect.top &&
+      virusRect.top < computerRect.bottom
+    ) {
+      this.hitComputer();
     }
 
     this.element.style.left = `${this.x}px`;
@@ -95,7 +203,6 @@ class Virus {
     if (this.health <= 0) {
       this.destroy();
     } else {
-      // Change de couleur pour indiquer les dégâts
       this.element.style.backgroundColor = `rgba(255, 0, 0, ${this.health / VIRUS_HEALTH})`;
       this.element.classList.add('hit');
       setTimeout(() => {
@@ -104,39 +211,46 @@ class Virus {
     }
   }
 
-  destroy() {
+  hitComputer() {
+    lives -= 1;
+    livesDisplay.textContent = `Vies: ${lives}`;
     this.element.remove();
     viruses = viruses.filter(v => v !== this);
-    incrementScore();
-    // Optionnel : Réapparaître après un certain temps
-    setTimeout(() => {
-      const newVirus = new Virus();
-      viruses.push(newVirus);
-    }, 2000);
+    triggerScreenFlash();
+    if (lives <= 0) {
+      endGame(false);
+    }
   }
 
-  attack() {
-    this.element.style.backgroundColor = 'grey';
-    // Réduire les vies
-    reduceLives();
-    // Détruire le virus après l'attaque
+  destroy() {
+    this.element.classList.add('destroyed');
     setTimeout(() => {
-      this.destroy();
-    }, 2000);
+      this.element.remove();
+    }, 500);
+    viruses = viruses.filter(v => v !== this);
+    incrementScore();
+    if (score >= WINNING_SCORE) {
+      endGame(true);
+    } else {
+      setTimeout(() => {
+        const newVirus = new Virus();
+        viruses.push(newVirus);
+      }, 1000);
+    }
   }
 }
 
 // Classe Projectile
 class Projectile {
   constructor(x, y, targetX, targetY) {
-    this.size = 60; // Largeur maximale du fragment de code
-    this.height = 20; // Hauteur du fragment de code
+    this.size = 10;
+    this.height = 10;
     this.speed = 5;
 
     this.element = document.createElement('div');
     this.element.classList.add('projectile');
 
-    // Choisir un fragment de code aléatoire
+    // Ajouter un fragment de code au projectile
     const codeSnippet = CODE_SNIPPETS[getRandomInt(0, CODE_SNIPPETS.length - 1)];
     this.element.textContent = codeSnippet;
 
@@ -147,7 +261,6 @@ class Projectile {
 
     projectilesContainer.appendChild(this.element);
 
-    // Calcul de la direction
     const deltaX = targetX - x;
     const deltaY = targetY - y;
     const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
@@ -155,19 +268,18 @@ class Projectile {
     this.velocityX = (deltaX / distance) * this.speed;
     this.velocityY = (deltaY / distance) * this.speed;
 
-    console.log(`Projectile initialisé avec velocityX: ${this.velocityX}, velocityY: ${this.velocityY}`);
-
     this.move();
   }
 
   move() {
+    if (gamePaused) return;
+
     this.x += this.velocityX;
     this.y += this.velocityY;
 
     this.element.style.left = `${this.x}px`;
     this.element.style.top = `${this.y}px`;
 
-    // Vérifier les collisions avec les virus
     for (let virus of viruses) {
       if (this.isCollidingWith(virus)) {
         virus.takeHit();
@@ -176,7 +288,6 @@ class Projectile {
       }
     }
 
-    // Supprimer le projectile s'il sort de l'écran
     if (
       this.x < 0 ||
       this.x > window.innerWidth ||
@@ -186,9 +297,6 @@ class Projectile {
       this.destroy();
       return;
     }
-
-    // Log de la position actuelle du projectile
-    console.log(`Projectile en mouvement à (${this.x}, ${this.y})`);
 
     requestAnimationFrame(this.move.bind(this));
   }
@@ -209,31 +317,153 @@ class Projectile {
   }
 }
 
-// Fonction pour tirer un projectile
 function shootProjectile(event) {
-  console.log('Clic détecté sur l\'ordinateur');
+  if (!canShoot) return;
+  canShoot = false;
+
   const computerRect = computer.getBoundingClientRect();
   const computerX = computerRect.left + computerRect.width / 2;
-  const computerY = computerRect.top + computerRect.height / 2; // Centre vertical
+  const computerY = computerRect.top + computerRect.height / 2;
 
   const targetX = event.clientX;
   const targetY = event.clientY;
 
-  console.log(`Tir vers (${targetX}, ${targetY}) depuis (${computerX}, ${computerY})`);
-
   new Projectile(computerX, computerY, targetX, targetY);
+
+  setTimeout(() => {
+    canShoot = true;
+  }, 500);
 }
 
-// Ajouter un écouteur d'événement de clic pour tirer
+function triggerScreenFlash() {
+  document.body.style.animation = 'flashBody 0.5s 2';
+
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes flashBody {
+      0% { background-color: rgba(255, 0, 0, 0.6); }
+      50% { background-color: #1e1e1e; }
+      100% { background-color: rgba(255, 0, 0, 0.6); }
+    }
+  `;
+  document.head.appendChild(style);
+
+  setTimeout(() => {
+    document.body.style.animation = '';
+  }, 1000);
+}
+
+function endGame(isWin) {
+  // Supprimer les éléments du jeu
+  computer.style.display = 'none';
+  projectilesContainer.innerHTML = '';
+  virusesContainer.innerHTML = '';
+
+  const terminal = document.createElement('div');
+  terminal.classList.add('terminal');
+  terminal.style.position = 'fixed';
+  terminal.style.top = '50%';
+  terminal.style.left = '50%';
+  terminal.style.transform = 'translate(-50%, -50%)';
+  terminal.style.width = '80%';
+  terminal.style.height = '50%';
+  terminal.style.backgroundColor = 'black';
+  terminal.style.color = isWin ? 'green' : 'red';
+  terminal.style.fontFamily = 'monospace';
+  terminal.style.fontSize = '20px';
+  terminal.style.padding = '20px';
+  terminal.style.overflow = 'hidden';
+  terminal.style.display = 'flex';
+  terminal.style.flexDirection = 'column';
+  terminal.style.justifyContent = 'center';
+  terminal.style.alignItems = 'center';
+  terminal.style.zIndex = '100';
+
+  const message = isWin
+    ? 'VICTOIRE ! Vous avez contré l\'attaque des virus avec succès. Félicitations, votre système est sécurisé!'
+    : 'DÉFAITE! Les virus ont pris le contrôle de votre système. Réessayez pour reprendre le contrôle!';
+
+  document.body.appendChild(terminal);
+
+  let index = 0;
+  const interval = setInterval(() => {
+    if (index < message.length) {
+      terminal.textContent += message[index];
+      index++;
+    } else {
+      clearInterval(interval);
+      const blinkingCursor = document.createElement('span');
+      blinkingCursor.textContent = '_';
+      blinkingCursor.style.animation = 'blink 1s infinite';
+      terminal.appendChild(blinkingCursor);
+
+      // Ajouter des boutons
+      const buttonContainer = document.createElement('div');
+      buttonContainer.style.marginTop = '20px';
+
+      if (isWin) {
+        const mnsButton = document.createElement('button');
+        mnsButton.textContent = 'Inscrivez-vous sur le site MNS';
+        mnsButton.style.margin = '5px';
+        mnsButton.onclick = () => {
+          window.location.href = 'https://www.metz-numeric-school.fr/fr';
+        };
+        buttonContainer.appendChild(mnsButton);
+      } else {
+        const retryButton = document.createElement('button');
+        retryButton.textContent = 'Rejouer';
+        retryButton.style.margin = '5px';
+        retryButton.onclick = () => {
+          window.location.reload();
+        };
+
+        const homeButton = document.createElement('button');
+        homeButton.textContent = 'Accueil';
+        homeButton.style.margin = '5px';
+        homeButton.onclick = () => {
+          window.location.href = 'index.html';
+        };
+
+        buttonContainer.appendChild(retryButton);
+        buttonContainer.appendChild(homeButton);
+      }
+
+      terminal.appendChild(buttonContainer);
+    }
+  }, 100);
+
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes blink {
+      0% { opacity: 1; }
+      50% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+
+    button {
+      background-color: #333;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background-color: #555;
+    }
+  `;
+  document.head.appendChild(style);
+}
+
 computer.addEventListener('click', shootProjectile);
 
-// Initialiser les virus
 for (let i = 0; i < NUM_INITIAL_VIRUSES; i++) {
   const virus = new Virus();
   viruses.push(virus);
 }
 
-// Fonctions Utilitaires
+// Utilitaires
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
@@ -243,65 +473,13 @@ function getRandomFloat(min, max) {
 }
 
 function getRandomColor() {
-  const colors = ['#ff4d4d', '#ff9999', '#ff6666', '#cc0000', '#e60000'];
-  return colors[Math.floor(Math.random() * colors.length)];
+  const colors = ['#ff4d4d', '#ff9999', '#ff6666', '#cc0000'];
+  return colors[getRandomInt(0, colors.length - 1)];
 }
 
 function incrementScore() {
   score += 1;
   scoreboard.textContent = `Points: ${score}`;
 }
-
-function reduceLives() {
-  lives -= 1;
-  livesDisplay.textContent = `Vies: ${lives}`;
-  if (lives <= 0) {
-    endGame();
-  }
-}
-
-function endGame() {
-  alert('Game Over!');
-  // Réinitialiser le jeu ou rediriger vers une autre page
-  window.location.reload();
-}
-
-// Gestion du redimensionnement de la fenêtre
-window.addEventListener('resize', () => {
-  // Vous pouvez ajuster les positions des éléments si nécessaire
-});
-
-// Fonction pour mettre à jour la position du curseur de visée et de la ligne de visée
-function updateAimCursor(event) {
-  const computerRect = computer.getBoundingClientRect();
-  const mouseX = event.clientX;
-  const mouseY = event.clientY;
-
-  // Calcul de l'angle entre le centre de l'ordinateur et le curseur
-  const centerX = computerRect.left + computerRect.width / 2;
-  const centerY = computerRect.top + computerRect.height / 2;
-
-  const deltaX = mouseX - centerX;
-  const deltaY = mouseY - centerY;
-  const angle = Math.atan2(deltaY, deltaX);
-
-  // Calcul de la distance entre le centre et la souris
-  const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-
-  // Positionner le curseur de visée à une certaine distance du centre
-  const cursorDistance = 40; // Distance du centre pour le curseur
-  const cursorX = centerX + cursorDistance * Math.cos(angle);
-  const cursorY = centerY + cursorDistance * Math.sin(angle);
-
-  aimCursor.style.left = `${cursorX}px`;
-  aimCursor.style.top = `${cursorY}px`;
-
-  // Positionner et orienter la ligne de visée
-  aimLine.style.left = `${centerX}px`;
-  aimLine.style.top = `${centerY}px`;
-  aimLine.style.transform = `rotate(${angle * 180 / Math.PI}deg)`;
-  aimLine.style.height = `${distance - cursorDistance}px`;
-}
-
-// Ajouter un écouteur d'événement pour suivre le mouvement de la souris
-window.addEventListener('mousemove', updateAimCursor);
+// Initialisation
+createStartScreen();

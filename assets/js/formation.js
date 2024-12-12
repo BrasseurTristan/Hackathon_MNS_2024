@@ -47,7 +47,7 @@ function showIntroImage() {
 showIntroImage();
 
 function updateCountdown() {
-  const countDownDate = new Date().getTime() + 1 * 60 * 1000;
+  const countDownDate = new Date().getTime() + 15 * 60 * 1000;
   const minutesElement = document.getElementById("minutes");
   const secondsElement = document.getElementById("seconds");
 

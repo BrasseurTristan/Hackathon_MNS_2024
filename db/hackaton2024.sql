@@ -50,7 +50,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `user_username`, `user_password`) VALUES
-(1, 'admin', '$2y$10$/kBUf7uZoeRFGGx4FiI1jeBeqO.8BCoSvZjWQTJJe5rjkavgqW5KK');
+(1, 'RO0TSUDO', '$2y$10$/kBUf7uZoeRFGGx4FiI1jeBeqO.8BCoSvZjWQTJJe5rjkavgqW5KK');
 
 --
 -- Index pour les tables déchargées
